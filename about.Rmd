@@ -1,0 +1,14 @@
+---
+title: "About this blog"
+description: |
+  Time to particpate in the R community!
+---
+
+While I've been doing data analysis for decades, I've recently started using R
+(I previously used SAS) and I've appreciated seeing the articles written by
+members of the R community with different tips and techniques.  This site is to
+share back and to collect my thoughts on the things I'm learning.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```

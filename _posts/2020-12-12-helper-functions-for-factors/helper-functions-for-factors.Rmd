@@ -1,0 +1,265 @@
+---
+title: "Helper functions for factors"
+description: |
+  Some helper functions to let you change the character strings of a 
+  factor variable without effecting the order of the levels.
+author:
+  - name: Jo Dudding
+date: 2020-12-12
+theme: theme.css
+output:
+  distill::distill_article:
+    self_contained: false
+draft: true    
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For this post, I thought I'd share some of the help fuctions for factors
+that I'm using. They are based on [Hadley's response to this issue for the 
+stringr package](https://github.com/tidyverse/stringr/issues/107).
+
+The helper functions are:
+
+- `str_wrap_factor`: to add string wrapping
+  ([`str_wrap`](https://stringr.tidyverse.org/reference/str_wrap.html)) 
+  to a factor variable
+- `str_br_factor`: similar to the above, but using \<br\> instead of \\n
+- `str_replace_factor`: to use
+  [`str_replace`](https://stringr.tidyverse.org/reference/str_replace.html) 
+  on a factor variable
+- `str_sub_factor`: to use
+  [`str_sub`](https://stringr.tidyverse.org/reference/str_sub.html)
+  for a factor variable
+
+Let's start by looking to see what happens if you use these stringr functions
+on a factor variable.
+
+```{r}
+library(tidyverse)
+
+has_factor <- tibble(
+    x = rep(1:10, 3),
+    y = runif(30),
+    fct_name = rep(c(
+      'This is my first long factor', 
+      'And my second long factor', 
+      'But the third is the longest of all of the factors so far'
+    ), 10)
+  ) %>% 
+  mutate(
+    fct_name = factor(fct_name, levels = c(
+      'This is my first long factor', 
+      'And my second long factor', 
+      'But the third is the longest of all of the factors so far'
+    ))
+  )
+
+glimpse(has_factor)
+
+```
+
+You can see these are in the order they are listed in the levels statement 
+above.
+
+```{r}
+fct_count(has_factor$fct_name)
+```
+
+Now, what happens when I try and apply `str_wrap`?
+
+```{r}
+fct_count(str_wrap(has_factor$fct_name, 20))
+```
+
+You can see that we've lost the ordering and its now in alphabetic order.
+
+Here's what it looks like in a graph.
+
+```{r}
+# source the file that contains my theme first
+source("../../scripts/mytheme.r")
+
+ggplot(has_factor, 
+  aes(x = str_wrap(fct_name, 20), y = y)
+  ) +
+  geom_col() +
+  coord_flip() +
+  theme_bw() +
+  labs(x = NULL, y = 'Name of this variable') +
+  theme_jo()
+```
+
+Still out of order (and also reversed as the factor order starts from zero).
+
+The purpose of the `str_wrap_factor` helper function is to apply the wrapping
+but not lose the ordering of the factor variable.
+
+Here's the function
+
+```{r}
+str_wrap_factor <- function(x, ...) {
+  levels(x) <- str_wrap(levels(x), ...)
+  x
+}
+```
+
+And here's what happens when we use it.
+
+```{r}
+fct_count(str_wrap_factor(has_factor$fct_name, 20))
+```
+
+The factor order has been retained.  Let's see it in use with a graph.
+
+```{r, preview = TRUE}
+ggplot(has_factor, 
+  aes(x = str_wrap_factor(fct_name, 20), y = y)
+  ) +
+  geom_col() +
+  coord_flip() +
+  theme_bw() +
+  labs(x = NULL, y = 'Name of this variable')
+```
+
+Let's try reversing the (flipped) x axis so the factor is ordered down instead 
+of up.
+
+```{r}
+ggplot(has_factor, 
+  aes(x = fct_rev(str_wrap_factor(fct_name, 20)), y = y)
+  ) +
+  geom_col() +
+  coord_flip() +
+  theme_bw() +
+  labs(x = NULL, y = 'Name of this variable')
+    
+```
+
+If you are using the `ggtext` package or creating a `knitr::kable` table you may find
+that \\n is ignored.
+
+```{r}
+library(knitr)
+
+has_factor %>% 
+  count(fct_name, wt = y) %>% 
+  mutate(fct_name = str_wrap_factor(fct_name, 20)) %>% 
+  kable()
+```
+
+That doesn't look right.  Let's extend the previous function to replace \\n with
+\<br\>.
+
+
+```{r}
+str_br_factor <- function(x, ...) {
+  levels(x) <- str_wrap(levels(x), ...)
+  levels(x) <- str_replace_all(levels(x), '\n', '<br>')
+  x
+}
+```
+
+Here's the factor count again.
+
+```{r}
+fct_count(str_br_factor(has_factor$fct_name, 20))
+
+```
+
+And the table using `str_br_factor`.
+
+```{r}
+has_factor %>% 
+  count(fct_name, wt = y) %>% 
+  mutate(fct_name = str_br_factor(fct_name, 20)) %>% 
+  kable()
+```
+
+Much better.
+
+> Still to do:
+
+`str_replace`
+
+`str_sub`
+
+You may be creating grouping based on other variables and want this to be a
+factor.
+
+```{r}
+calc_factor <- tibble(x = runif(30)) %>% 
+  mutate(
+    groups = case_when(
+      x < 0.25 ~ 'First level',
+      x < 0.66 ~ 'Second level',
+      TRUE ~ 'Last level'
+    ),
+    groups = factor(groups)
+  )
+    
+fct_count(calc_factor$groups)
+```
+
+The default when using `factor` is alpabetic order.  You could use factor and
+list out the levels instead.
+
+```{r}
+calc_factor <- tibble(x = runif(30)) %>% 
+  mutate(
+    groups = case_when(
+      x < 0.25 ~ 'First level',
+      x < 0.66 ~ 'Second level',
+      TRUE ~ 'Last level'
+    ),
+    groups = factor(groups, levels = c(
+      'First level',
+      'Second level',
+      'Last level'
+    ))
+  )
+  
+fct_count(calc_factor$groups)
+```
+
+But this involves entering the strings twice.
+
+```{r}
+calc_factor <- tibble(x = runif(30)) %>% 
+  mutate(
+    groups = case_when(
+      x < 0.25 ~ 'a First level',
+      x < 0.66 ~ 'b Second level',
+      TRUE ~ 'c Last level'
+    ),
+    groups = factor(groups)
+  )
+    
+fct_count(calc_factor$groups)
+```
+
+```{r}
+str_ord_factor <- function(x, start = 3L, ...) {
+  x <- factor(x)
+  levels(x) <- str_sub(levels(x), start = start, ...)
+  x
+}
+```
+
+```{r}
+calc_factor <- tibble(x = runif(30)) %>% 
+  mutate(
+    groups = case_when(
+      x < 0.25 ~ 'a First level',
+      x < 0.66 ~ 'b Second level',
+      TRUE ~ 'c Last level'
+    ),
+    groups = str_ord_factor(groups)
+  )
+    
+fct_count(calc_factor$groups)
+```
+

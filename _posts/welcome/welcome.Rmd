@@ -1,0 +1,32 @@
+---
+title: "Welcome to Random Analysis Generator"
+description: |
+  Welcome to Random Analysis Generator, where I share what I've been learning
+  about R.
+author:
+  - name: Jo Dudding 
+    url: https://github.com/JoDudding/blog
+date: 2020-12-12
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+Learning how to use the `distill` package is the first part.
+
+Need to work out how to get the logo in to the nav bar.  And figure out
+why the font size in charts is smaller with my theme.
+
+Some ideas for posts are:
+
+- factor levels wrap, substring, etc
+- ggtext colour word helper
+- scale pct etc
+- ggpie
+- str_wrap_html
+- nz hexmap
+- xmas tree
+- theme testing
+
+

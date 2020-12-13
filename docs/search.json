@@ -1,0 +1,28 @@
+{
+  "articles": [
+    {
+      "path": "about.html",
+      "title": "About this blog",
+      "description": "Time to particpate in the R community!",
+      "author": [],
+      "contents": "\r\nWhile I’ve been doing data analysis for decades, I’ve recently started using R (I previously used SAS) and I’ve appreciated seeing the articles written by members of the R community with different tips and techniques. This site is to share back and to collect my thoughts on the things I’m learning.\r\n\r\n\r\n\r\n",
+      "last_modified": "2020-12-13T21:43:46+13:00"
+    },
+    {
+      "path": "index.html",
+      "title": "Random Analysis Generator",
+      "author": [],
+      "contents": "\r\n\r\n\r\n\r\n",
+      "last_modified": "2020-12-13T21:43:51+13:00"
+    },
+    {
+      "path": "reference.html",
+      "title": "Reference material",
+      "description": "Here are some links to things I've found useful.\n",
+      "author": [],
+      "contents": "\r\n\r\nContents\r\nDistill\r\nTidyTuesday\r\nPackages\r\n\r\nDistill\r\nOfficial site for package\r\nBuilding a blog with distill\r\nTidyTuesday\r\nPackages\r\nYour first R package in 1 hour\r\nWriting an R package from scratch\r\n\r\n\r\n\r\n",
+      "last_modified": "2020-12-13T21:43:55+13:00"
+    }
+  ],
+  "collections": ["posts/posts.json"]
+}

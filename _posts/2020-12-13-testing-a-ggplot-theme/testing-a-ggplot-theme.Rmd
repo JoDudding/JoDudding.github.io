@@ -1,0 +1,260 @@
+---
+title: "Testing a ggplot theme"
+description: |
+  Playing with options to decide on the theme I want to use.
+author:
+  - name: Jo Dudding
+    url: {}
+date: 2020-12-13
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 19 / 2.54,
+  fig.align = 'center',
+  fig.asp = 0.618
+  
+  )
+```
+
+First we'll start with a chart using the default theme.
+
+```{r}
+library(tidyverse)
+library(ggtext)
+
+p_bar <- ggplot(mtcars, aes(drat)) +
+  geom_histogram(bins = 5) +
+  labs(
+    x = 'Title of x',
+    y = 'Title of y',
+    title = 'Overall Title',
+    subtitle = 'This is the subtitle',
+    caption = 'May need a caption as well'
+  )
+
+p_bar
+```
+
+I tried the different base themes and this was the closest to what I wanted.
+
+```{r}
+p_bar + theme_bw()
+```
+
+Let's try changing the font
+
+```{r}
+library(showtext)
+font_add_google("Fira Sans", "Fira Sans")
+showtext_auto()
+
+p_bar <- p_bar + 
+  theme_bw() %+replace%
+  theme(
+    # default font
+    text = element_text(family="Fira Sans", size = 15)
+  )
+
+p_bar
+```
+
+Add some other layout changes to:
+
+- Move the title and caption to align with the plot not the panel
+- Put some extra room between the plot and the title/caption
+- Make the text fields use `element_markdown`
+- Right align the axis titles
+- Remove the panel border
+- Add in axis lines the same colour as the gridlines and change the tick marks
+  to use the same colour.
+
+```{r}
+p_bar <- p_bar +
+  theme(
+    # align title and caption to the plot not the panel
+    plot.title.position = 'plot',
+    plot.caption.position = 'plot',
+    # change the title and caption to markdown and move them futher from the plot
+    plot.title = element_markdown(
+      hjust = 0, 
+      margin = margin(c(0, 0, 10, 0))
+    ),
+    plot.subtitle = element_markdown(
+      hjust = 0, 
+      margin = margin(c(0, 0, 15, 0))
+    ),
+    plot.caption = element_markdown(
+      hjust = 1, 
+      margin = margin(c(10, 0, 0, 0))
+    ),
+    # move axis titles to the left/top and change them to markdown
+    axis.title = element_markdown(hjust = 1),
+    # allow the axis values to the markdown as well
+    axis.text = element_markdown(),
+    # remove the panel border
+    panel.border = element_blank(),
+    # put in the axis lines with a slightly thicker line than the gridlines
+    axis.line = element_line(colour = "grey92", size = rel(1.5)),
+    # make the tickmarks the same colour
+    axis.ticks = element_line(colour = "grey92")
+  )
+
+p_bar
+```
+
+Let's see what it looks like with facets.
+
+```{r}
+p_bar <- p_bar + 
+  facet_wrap(~as_factor(carb))
+
+p_bar
+```
+
+I've left aligned the text in the facet and removed the box and border.
+
+```{r}
+p_bar <- p_bar + 
+  theme(
+    # facet strip text left aligned with extra space above
+    strip.text = element_markdown(hjust = 0, margin = margin(c(10, 0, 0, 0))),
+    # clear colour and fill for strip
+    strip.background = element_rect(colour = NA, fill = NA)
+  )
+
+p_bar
+```
+
+Time to add some colour.
+
+```{r}
+add_colour <- "#5F187FFF"
+
+p_bar <- p_bar +
+  theme(
+    # colour the title
+    plot.title = element_markdown(
+      hjust = 0, margin = margin(c(0, 0, 10, 0)), colour = add_colour
+    ),
+    # colour the strip text
+    strip.text = element_markdown(
+      hjust = 0, margin = margin(c(10, 0, 0, 0)), colour = add_colour
+    )
+  )
+
+p_bar
+```
+
+Nearly there.  I think I'll made the gridlines dotted.
+
+```{r}
+add_colour <- "#5F187FFF"
+
+p_bar <- p_bar +
+  theme(
+    # dotted gridlines
+    panel.grid = element_line(linetype = 'dotted')
+  )
+
+p_bar
+```
+
+Okay.  Let's save this as a theme with options to change out the highlight 
+colour, font family and font size
+
+
+```{r}
+theme_jo <- function(
+  add_colour = "#5F187FFF",
+  base_family = "Fira Sans",
+  base_size = 15,
+  x_grid_colour = "grey92",
+  y_grid_colour = "grey92",
+  ...
+  ) {
+  
+  theme_bw(...) %+replace%
+  theme(
+    # default font
+    text = element_text(family = base_family, size = base_size),
+    # align title and caption to the plot not the panel
+    plot.title.position = 'plot',
+    plot.caption.position = 'plot',
+    # change the title and caption to markdown and move them futher from the plot
+    # change the title and caption to markdown and move them futher from the plot
+    plot.title = element_markdown(
+      hjust = 0, 
+      margin = margin(c(0, 0, 10, 0)),
+      colour = add_colour
+    ),
+    plot.subtitle = element_markdown(
+      hjust = 0, 
+      margin = margin(c(0, 0, 15, 0))
+    ),
+    plot.caption = element_markdown(
+      hjust = 1, 
+      margin = margin(c(10, 0, 0, 0))
+    ),
+    # move axis titles to the left/top and change them to markdown
+    axis.title = element_markdown(hjust = 1),
+    # allow the axis values to the markdown as well
+    axis.text = element_markdown(),
+    # remove the panel border
+    panel.border = element_blank(),
+    # put in the axis lines with a slightly thicker line than the gridlines
+    axis.line = element_line(colour = "grey92", size = rel(1.5)),
+    # make the tickmarks the same colour
+    axis.ticks = element_line(colour = "grey92"),
+    # facet strip text left aligned with extra space above
+    strip.text = element_markdown(
+      hjust = 0, margin = margin(c(10, 0, 0, 0)), colour = add_colour
+    ),
+    # clear colour and fill for strip
+    strip.background = element_rect(colour = NA, fill = NA),
+    # dotted gridlines
+    panel.grid = element_line(linetype = 'dotted'),
+    # ability to use a different colour for the gridlines
+    panel.grid.major.x = element_line(colour = x_grid_colour),
+    panel.grid.major.y = element_line(colour = y_grid_colour)
+  )
+}
+```
+
+And apply it to a new chart with a markdown change in the title.
+
+```{r, preview = TRUE}
+ggplot(diamonds, aes(x=carat, y=price, color=clarity)) + 
+  geom_point() +
+  labs(
+    title = '*Price* of **diamonds** for differing *carats*',
+    subtitle = 'The *clarity* is also a driver of *price*',
+    caption = 'Source: unknown'
+  ) +
+  theme_jo()
+```
+
+And using different parameters.
+
+```{r}
+ggplot(diamonds, aes(x=clarity, y=price)) + 
+  geom_boxplot() +
+  labs(
+    title = '*Price* of **diamonds** for differing *carats*',
+    subtitle = 'This time its a boxplot',
+    caption = 'Source: unknown'
+  ) +
+  theme_jo(
+    add_colour = '#FFA500', 
+    base_family = 'sans',
+    base_size = 11,
+    y_grid_colour = '#FFA500',
+    x_grid_colour = 'white')
+```

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" version="1.0">
+  <url>
+    <loc>https://github.com/JoDudding/blog/about.html</loc>
+    <lastmod>2020-12-12T16:24:20+13:00</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/JoDudding/blog/</loc>
+    <lastmod>2020-12-12T16:07:41+13:00</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/JoDudding/blog/reference.html</loc>
+    <lastmod>2020-12-12T19:55:12+13:00</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/JoDudding/blog/posts/2020-12-13-testing-a-ggplot-theme/</loc>
+    <lastmod>2020-12-13T21:35:20+13:00</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/JoDudding/blog/posts/welcome/</loc>
+    <lastmod>2020-12-13T21:39:45+13:00</lastmod>
+  </url>
+</urlset>

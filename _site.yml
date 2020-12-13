@@ -1,0 +1,26 @@
+name: "blog"
+title: "Random Analysis Generator"
+description: |
+  Welcome to Random Analysis Generator, where I share what I've been learning
+  about R.
+base_url: https://github.com/JoDudding/blog  
+output_dir: "docs"
+theme: theme.css
+favicon: logo.png
+navbar:
+  logo:
+    image: ../../logo.png
+    href: https://github.com/JoDudding/blog
+  source_url: https://github.com/JoDudding
+  right:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: about.html
+    - text: "Reference"
+      href: reference.html
+output: distill::distill_article
+collections:
+  posts:
+    citations: false
+

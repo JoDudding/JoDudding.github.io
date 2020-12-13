@@ -1,0 +1,24 @@
+---
+title: "Reference material"
+description: |
+  Here are some links to things I've found useful.
+output:
+  distill::distill_article:
+    self_contained: false
+    toc: true
+---
+
+# Distill
+
+- [Official site for package](https://pkgs.rstudio.com/distill/)
+- [Building a blog with distill
+  ](https://themockup.blog/posts/2020-08-01-building-a-blog-with-distill/)
+
+# TidyTuesday
+
+# Packages
+
+- [Your first R package in 1 hour
+  ](https://www.pipinghotdata.com/posts/2020-10-25-your-first-r-package-in-1-hour/)
+- [Writing an R package from scratch
+  ](https://hilaryparker.com/2014/04/29/writing-an-r-package-from-scratch/)  

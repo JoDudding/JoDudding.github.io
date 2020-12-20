@@ -90,6 +90,7 @@ ggplot(has_factor,
   coord_flip() +
   theme_bw() +
   labs(x = NULL, y = 'Name of this variable') +
+  #scale_y_expand() +
   theme_jo()
 ```
 

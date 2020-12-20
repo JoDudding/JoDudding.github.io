@@ -1477,7 +1477,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <pre><code>Rows: 30
 Columns: 3
 $ x        &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6,...
-$ y        &lt;dbl&gt; 0.76552646, 0.62050581, 0.46767955, 0.01320703, ...
+$ y        &lt;dbl&gt; 0.77413239, 0.78470499, 0.09614016, 0.44869931, ...
 $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code></pre>
 </div>
 <p>You can see these are in the order they are listed in the levels statement above.</p>
@@ -1520,6 +1520,7 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
   <span class='fu'>coord_flip</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
   <span class='fu'>labs</span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, y <span class='op'>=</span> <span class='st'>'Name of this variable'</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='co'>#scale_y_expand() +</span>
   <span class='fu'>theme_jo</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -1603,7 +1604,7 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
 </tr>
 <tr class="even">
 <td style="text-align: left;">long factor</td>
-<td style="text-align: right;">4.904292</td>
+<td style="text-align: right;">5.908113</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">And my second long</td>
@@ -1611,7 +1612,7 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
 </tr>
 <tr class="even">
 <td style="text-align: left;">factor</td>
-<td style="text-align: right;">6.878241</td>
+<td style="text-align: right;">5.627635</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">But the third is the</td>
@@ -1619,7 +1620,7 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
 </tr>
 </tbody>
 </table>
-<p>longest of all of the factors so far | 4.124389|</p>
+<p>longest of all of the factors so far | 5.310347|</p>
 </div>
 <p>That doesn’t look right. Let’s extend the previous function to replace \n with &lt;br&gt;.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1664,15 +1665,15 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">This is my first<br>long factor</td>
-<td style="text-align: right;">4.904292</td>
+<td style="text-align: right;">5.908113</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">And my second long<br>factor</td>
-<td style="text-align: right;">6.878241</td>
+<td style="text-align: right;">5.627635</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">But the third is the<br>longest of all of<br>the factors so far</td>
-<td style="text-align: right;">4.124389</td>
+<td style="text-align: right;">5.310347</td>
 </tr>
 </tbody>
 </table>
@@ -1702,9 +1703,9 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
 <pre><code># A tibble: 3 x 2
   f                n
   &lt;fct&gt;        &lt;int&gt;
-1 First level     12
-2 Last level      10
-3 Second level     8</code></pre>
+1 First level      2
+2 Last level       9
+3 Second level    19</code></pre>
 </div>
 <p>The default when using <code>factor</code> is alpabetic order. You could use factor and list out the levels instead.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1729,9 +1730,9 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
 <pre><code># A tibble: 3 x 2
   f                n
   &lt;fct&gt;        &lt;int&gt;
-1 First level      7
+1 First level      8
 2 Second level    13
-3 Last level      10</code></pre>
+3 Last level       9</code></pre>
 </div>
 <p>But this involves entering the strings twice.</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -1752,9 +1753,9 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
 <pre><code># A tibble: 3 x 2
   f                  n
   &lt;fct&gt;          &lt;int&gt;
-1 a First level      5
-2 b Second level    13
-3 c Last level      12</code></pre>
+1 a First level     15
+2 b Second level     9
+3 c Last level       6</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -1784,9 +1785,9 @@ $ fct_name &lt;fct&gt; This is my first long factor, And my second long...</code
 <pre><code># A tibble: 3 x 2
   f                n
   &lt;fct&gt;        &lt;int&gt;
-1 First level      5
-2 Second level    16
-3 Last level       9</code></pre>
+1 First level      2
+2 Second level    22
+3 Last level       6</code></pre>
 </div>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

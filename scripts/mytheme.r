@@ -111,8 +111,178 @@ theme_set(theme_jo())
 # scale adjustments
 #-------------------------------------------------------------------------------
 
+# default
 
+scale_x_expand <- function(
+  expand = expansion(mult = c(0, .05)),
+  ...
+) {
+  scale_x_continuous(
+    expand = expand,
+    ...
+  )
+} 
 
+scale_y_expand <- function(
+  expand = expansion(mult = c(0, .05)),
+  ...
+) {
+  scale_y_continuous(
+    expand = expand,
+    ...
+  )
+} 
 
+# custom y
+
+scale_y_pct <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_y_expand(
+    labels = scales::percent_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+scale_y_comma <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_y_expand(
+    labels = scales::comma_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+scale_y_dollar <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_y_expand(
+    labels = scales::dollar_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+# custom x
+
+scale_x_pct <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_x_expand(
+    labels = scales::percent_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+scale_x_comma <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_x_expand(
+    labels = scales::comma_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+scale_x_dollar <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_x_expand(
+    labels = scales::dollar_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+}
+
+# custom fill
+
+scale_fill_pct <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_fill_continuous(
+    labels = scales::percent_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+scale_fill_comma <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_fill_continuous(
+    labels = scales::comma_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+scale_fill_dollar <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_fill_continuous(
+    labels = scales::dollar_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+}
+
+# custom colour
+
+scale_colour_pct <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_colour_continuous(
+    labels = scales::percent_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+scale_colour_comma <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_colour_continuous(
+    labels = scales::comma_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+} 
+
+scale_colour_dollar <- function(
+  accuracy = 1L, 
+  breaks = pretty_breaks(),
+  ...
+) {
+  scale_colour_continuous(
+    labels = scales::dollar_format(accuracy = accuracy),
+    breaks = breaks,
+    ...
+  )
+}
 
 #-------------------------------------------------------------------------------

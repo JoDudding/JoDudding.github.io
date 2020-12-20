@@ -51,16 +51,12 @@ p_bar + theme_bw()
 
 Let's try changing the font
 
-```{r}
-library(showtext)
-font_add_google("Fira Sans", "Fira Sans")
-showtext_auto()
-
+```{r, eval = FALSE}
 p_bar <- p_bar + 
   theme_bw() %+replace%
   theme(
     # default font
-    text = element_text(family="Fira Sans", size = 15)
+    text = element_text(family = "Fira Sans")
   )
 
 p_bar
@@ -175,7 +171,6 @@ colour, font family and font size
 theme_jo <- function(
   add_colour = "#5F187FFF",
   base_family = "Fira Sans",
-  base_size = 15,
   x_grid_colour = "grey92",
   y_grid_colour = "grey92",
   ...
@@ -184,12 +179,11 @@ theme_jo <- function(
   theme_bw(...) %+replace%
   theme(
     # default font
-    text = element_text(family = base_family, size = base_size),
+    text = element_text(family = base_family),
     # align title and caption to the plot not the panel
     plot.title.position = 'plot',
     plot.caption.position = 'plot',
-    # change the title and caption to markdown and move them futher from the plot
-    # change the title and caption to markdown and move them futher from the plot
+    # change the title and caption to markdown and move them further from the plot
     plot.title = element_markdown(
       hjust = 0, 
       margin = margin(c(0, 0, 10, 0)),
@@ -254,7 +248,6 @@ ggplot(diamonds, aes(x=clarity, y=price)) +
   theme_jo(
     add_colour = '#FFA500', 
     base_family = 'sans',
-    base_size = 11,
     y_grid_colour = '#FFA500',
     x_grid_colour = 'white')
 ```
